@@ -1,0 +1,24 @@
+.button {
+  background-color: transparent;
+  padding: 0.5rem 2rem;
+  line-height: 1.5rem;
+  display: inline-block;
+  cursor: pointer;
+  background-color: var(--main-background);
+  color: var(--main-typography);
+  font-size: 1rem;
+  text-decoration: none;
+  @include bodyText();
+  border: 1px solid var(--main-typography);
+  border-bottom-width: 6px;
+  margin-bottom: -5px;
+  @include transitionColors();
+}
+.button:hover {
+  background-color: var(--secondary-border);
+}
+.button:active {
+  position: relative;
+  top: 5px;
+  border-bottom-width: 1px;
+}

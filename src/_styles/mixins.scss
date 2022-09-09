@@ -1,0 +1,85 @@
+@mixin bodyText() {
+  font-family: 'Trispace', sans-serif;
+  letter-spacing: -0.05em;
+  font-weight: 300;
+  color: var(--main-typography);
+}
+
+@mixin titleText() {
+  font-family: 'Heebo', sans-serif;
+  font-weight: 900;
+  line-height: 1em;
+  color: var(--main-typography);
+}
+
+@mixin h1Title() {
+  font-size: 3.5rem;
+}
+
+@mixin h2Title() {
+  font-size: 2.5rem;
+}
+
+@mixin h3Title() {
+  font-size: 2rem;
+}
+
+@mixin h3Title() {
+  font-size: 1.75rem;
+}
+
+@mixin h4Title() {
+  font-size: 1.5rem;
+}
+
+// Responsiveness
+
+// media queries
+@mixin screenSize($size) {
+  @if $size == lgDesktop {
+    // large desktop
+    @media only screen and (max-width: 1599px) {
+      @content;
+    }
+  } @else if $size == mdDesktop {
+    // medium desktop
+    @media only screen and (max-width: 1279px) {
+      @content;
+    }
+  } @else if $size == smDesktop {
+    // small desktop
+    @media only screen and (max-width: 1099px) {
+      @content;
+    }
+  } @else if $size == lsTablet {
+    // landscape tablet
+    @media only screen and (max-width: 1023px) {
+      @content;
+    }
+  } @else if $size == ptTablet {
+    // portrait tablet
+    @media only screen and (max-width: 800px) {
+      @content;
+    }
+  } @else if $size == lgMobile {
+    // large mobile
+    @media only screen and (max-width: 767px) {
+      @content;
+    }
+  } @else if $size == mdMobile {
+    // medium mobile
+    @media only screen and (max-width: 479px) {
+      @content;
+    }
+  } @else if $size == smMobile {
+    // small mobile
+    @media only screen and (max-width: 413px) {
+      @content;
+    }
+  } @else {
+    // custom size
+    @media only screen and (max-width: $size) {
+      @content;
+    }
+  }
+}

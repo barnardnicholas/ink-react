@@ -1,14 +1,12 @@
 import { Story } from 'inkjs';
 import { Choice as ChoiceType } from 'inkjs/engine/Choice';
 import { Story as StoryType } from 'inkjs/engine/Story';
-import { useCallback, useEffect, useState } from 'react';
-import usePrevious from './usePrevious';
-
-let story: StoryType | null;
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UseStory {
-  story: StoryType | null;
+  story: StoryType;
   storyElements: StoryElement[];
+  storyChoices: StoryElement[];
   continueToNextChoice: () => void;
   end: () => void;
   chooseAnswer: (chosenAnswer: number) => void;
@@ -27,54 +25,61 @@ export interface StoryElement {
 /* eslint-disable */
 const useStory = (inkFile: Record<string, any>): UseStory => {
   /* eslint-enable */
+  const storyRef = useRef<StoryType>(new Story(inkFile));
   const [storyElements, setStoryElements] = useState<StoryElement[]>([]);
-  const prevProps = usePrevious({ story });
+  const [storyChoices, setStoryChoices] = useState<StoryElement[]>([]);
 
   function end() {
+    setStoryChoices([]);
     console.log('THE END');
   }
 
   const continueToNextChoice = useCallback(() => {
-    if (!story) return;
-    if (!story.canContinue && story.currentChoices.length === 0) end();
+    console.log('continueToNextChoice');
+    console.log(storyRef.current?.canContinue);
+    if (!storyRef.current) return;
+    if (!storyRef.current?.canContinue && storyRef.current?.currentChoices.length === 0) end();
 
-    while (story.canContinue) {
-      const text: string = story.Continue() as string;
+    while (storyRef.current?.canContinue) {
+      const text: string = storyRef.current.Continue() as string;
       setStoryElements((prevState: StoryElement[]) => {
         return [...prevState, { text, type: StoryElementType.TEXT, i: 0 }];
       });
     }
 
-    if (story.currentChoices.length > 0) {
-      story.currentChoices.forEach((choice: ChoiceType, i: number) => {
-        // console.log(`${i + 1}. ${choice.text}`); // Display answer
-        setStoryElements((prevState: StoryElement[]) => {
-          return [
-            ...prevState,
-            { text: `${i + 1}. ${choice.text}`, type: StoryElementType.CHOICE, i: i + 1 },
-          ];
-        });
-      });
+    if (storyRef.current?.currentChoices.length > 0) {
+      setStoryChoices(
+        storyRef.current.currentChoices.map((choice: ChoiceType, i: number) => ({
+          text: `${i + 1}. ${choice.text}`,
+          type: StoryElementType.CHOICE,
+          i: i + 1,
+        })),
+      );
     } else {
+      setStoryChoices([]);
       end();
     }
   }, []);
 
   function chooseAnswer(chosenAnswer: number) {
-    if (!story) return;
-    story.ChooseChoiceIndex(chosenAnswer - 1);
+    if (!storyRef.current) return;
+    storyRef.current.ChooseChoiceIndex(chosenAnswer - 1);
+    setStoryChoices([]);
     continueToNextChoice();
   }
 
   useEffect(() => {
-    if (inkFile && !story) story = new Story(inkFile);
-  }, [inkFile]);
+    if (storyRef.current) continueToNextChoice();
+  }, [continueToNextChoice]);
 
-  useEffect(() => {
-    if (story && !prevProps.story) continueToNextChoice();
-  }, [prevProps.story, continueToNextChoice]);
-
-  return { story, storyElements, continueToNextChoice, end, chooseAnswer };
+  return {
+    story: storyRef.current,
+    storyElements,
+    storyChoices,
+    continueToNextChoice,
+    end,
+    chooseAnswer,
+  };
 };
 
 export default useStory;

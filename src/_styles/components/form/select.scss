@@ -1,0 +1,177 @@
+.form-input,
+.form-select {
+  padding: 0.5rem 1rem;
+  line-height: 1.5rem;
+  color: var(--main-typography);
+  background-color: var(--main-background);
+  border: 1px solid var(--main-typography);
+  @include transitionColors();
+
+  &:disabled,
+  &.disabled {
+    cursor: not-allowed;
+    color: #666666;
+    border: 1px solid #666666;
+  }
+
+  &.error {
+    border-color: red;
+  }
+
+  // mini version
+  &.mini {
+    padding: {
+      top: 7px;
+      bottom: 7px;
+    }
+  }
+}
+
+// select
+.form-select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: default;
+  min-width: 15rem;
+  @include bodyText();
+
+  &:disabled,
+  &.disabled {
+    color: #666666;
+
+    p,
+    .arrow {
+      color: #666666;
+    }
+  }
+
+  .arrow {
+    padding-top: 4px;
+    margin-left: 10px;
+    padding-left: 10px;
+    font-size: 22px;
+  }
+
+  p {
+    flex: 1;
+
+    &.placeholder {
+      color: #999;
+    }
+  }
+
+  .remove {
+    margin-top: 2px;
+    background-color: transparent;
+    outline: none;
+
+    i {
+      font-size: 16px;
+    }
+  }
+
+  // multi select
+  &.multi-select {
+    padding: 3px 15px 3px 5px;
+
+    .selected {
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .placeholder {
+      padding: 10px;
+      padding-right: 0;
+    }
+
+    .option {
+      display: flex;
+      margin: 5px;
+      padding: 5px 10px;
+      background-color: var(--main-background);
+
+      .remove {
+        margin-left: 5px;
+
+        i {
+          color: var(--main-typography);
+          font-size: 14px;
+        }
+      }
+    }
+
+    &.disabled {
+      .option {
+        background-color: var(--main-background);
+      }
+    }
+  }
+
+  // mini version
+  &.mini {
+    .arrow {
+      margin-left: 30px;
+    }
+  }
+}
+
+// select options & search
+.form-select-options {
+  position: absolute;
+  min-width: 15rem;
+  top: calc(100% + 0.26rem);
+  background-color: var(--main-background);
+  border: 1px solid;
+  border-top-width: 0;
+  border-bottom-width: 6px;
+  z-index: 2;
+  //   transition: top 0.5s ease;
+  height: 0;
+  max-height: 0;
+  overflow: hidden;
+
+  &.open {
+    max-height: unset;
+    height: fit-content;
+    // transition: top 1s ease;
+  }
+
+  &.disabled {
+    color: #666666;
+  }
+
+  .search {
+    padding: 15px;
+
+    input {
+      width: 100%;
+      padding: 5px 15px;
+    }
+  }
+
+  .options-list {
+    max-height: 175px;
+    overflow: auto;
+
+    div {
+      padding: 8px 15px;
+    }
+
+    .option {
+      cursor: pointer;
+
+      &:hover,
+      &.active {
+        background-color: var(--main-typography);
+        color: var(--main-background);
+      }
+    }
+  }
+
+  // mini version
+  &.mini {
+    min-width: 200px;
+  }
+}

@@ -1,0 +1,24 @@
+// Standard Theme
+@mixin themeColors() {
+  .App {
+    --main-background: #272730;
+    --main-background-trans: #272730cc;
+    --main-typography: #f7f7f7;
+    --main-border: #666666;
+    --secondary-typography: #aaaaaa;
+    --secondary-border: #444444;
+
+    &.theme-light {
+      --main-background: #f7f7f7;
+      --main-background-trans: #f7f7f7cc;
+      --main-typography: #272730;
+      --main-border: #666666;
+      --secondary-typography: #444444;
+      --secondary-border: #aaaaaa;
+    }
+  }
+}
+
+@mixin transitionColors() {
+  transition: color 0.5s ease, border-color 0.5s ease, background-color 0.5s ease;
+}

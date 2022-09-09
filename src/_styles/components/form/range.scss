@@ -1,0 +1,88 @@
+$thumb-height: 1rem;
+$thumb-width: 1rem;
+
+@mixin thumb() {
+  width: $thumb-width;
+  height: $thumb-height;
+  background: var(--main-background);
+  border: 1px solid var(--main-typography);
+  border-bottom-width: 6px;
+  margin-bottom: -5px;
+  box-sizing: content-box;
+  position: relative;
+  top: calc(($thumb-height * 0.2) * -1);
+}
+
+.range-container {
+  display: inline-block;
+  margin: 0 0.5rem;
+}
+
+input[type='range'] {
+  width: 100%;
+  margin: calc($thumb-height / 2) 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+}
+input[type='range']:focus {
+  outline: none;
+}
+input[type='range']::-webkit-slider-runnable-track {
+  // background: var(--main-border);
+  border-bottom: 1px solid var(--main-border);
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+}
+input[type='range']::-webkit-slider-thumb {
+  margin-top: calc(($thumb-height / 2) * -1);
+  @include thumb();
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+input[type='range']:focus::-webkit-slider-runnable-track {
+  // background: var(--main-typography);
+  border-bottom: 1px solid var(--main-border);
+}
+input[type='range']::-moz-range-track {
+  // background: var(--main-border);
+  border-bottom: 1px solid var(--main-border);
+  // border: 0;
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+}
+input[type='range']::-moz-range-thumb {
+  @include thumb();
+  cursor: pointer;
+}
+input[type='range']::-ms-track {
+  // background: var(--main-border);
+  border-color: transparent;
+  border-bottom: 1px solid var(--main-border);
+  // border-width: 0;
+  color: transparent;
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+}
+input[type='range']::-ms-fill-lower,
+input[type='range']::-ms-fill-upper,
+input[type='range']:focus::-ms-fill-lower,
+input[type='range']:focus::-ms-fill-upper {
+  background: transparent;
+  border: 0;
+}
+input[type='range']::-ms-thumb {
+  @include thumb();
+  cursor: pointer;
+  margin-top: 0px;
+  /*Needed to keep the Edge thumb centred*/
+}
+@supports (-ms-ime-align: auto) {
+  /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+  input[type='range'] {
+    margin: 0;
+    /*Edge starts the margin from the thumb, not the track as other browsers do*/
+  }
+}
