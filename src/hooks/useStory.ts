@@ -21,6 +21,7 @@ export interface StoryElement {
   text: string;
   type: StoryElementType;
   i: number;
+  seen: boolean;
 }
 /* eslint-disable */
 const useStory = (inkFile: Record<string, any>): UseStory => {
@@ -35,15 +36,13 @@ const useStory = (inkFile: Record<string, any>): UseStory => {
   }
 
   const continueToNextChoice = useCallback(() => {
-    console.log('continueToNextChoice');
-    console.log(storyRef.current?.canContinue);
     if (!storyRef.current) return;
     if (!storyRef.current?.canContinue && storyRef.current?.currentChoices.length === 0) end();
 
     while (storyRef.current?.canContinue) {
       const text: string = storyRef.current.Continue() as string;
       setStoryElements((prevState: StoryElement[]) => {
-        return [...prevState, { text, type: StoryElementType.TEXT, i: 0 }];
+        return [...prevState, { text, type: StoryElementType.TEXT, i: 0, seen: false }];
       });
     }
 
@@ -53,6 +52,7 @@ const useStory = (inkFile: Record<string, any>): UseStory => {
           text: `${i + 1}. ${choice.text}`,
           type: StoryElementType.CHOICE,
           i: i + 1,
+          seen: false,
         })),
       );
     } else {
@@ -63,6 +63,10 @@ const useStory = (inkFile: Record<string, any>): UseStory => {
 
   function chooseAnswer(chosenAnswer: number) {
     if (!storyRef.current) return;
+    console.log(storyRef.current);
+    setStoryElements((prevState: StoryElement[]) =>
+      prevState.map((choice: StoryElement) => ({ ...choice, seen: true })),
+    );
     storyRef.current.ChooseChoiceIndex(chosenAnswer - 1);
     setStoryChoices([]);
     continueToNextChoice();

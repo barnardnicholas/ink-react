@@ -14,7 +14,7 @@ function App() {
         return (
           <div
             key={uid}
-            className="story-element text"
+            className={`story-element text ${element.seen ? 'seen' : ''}`}
             dangerouslySetInnerHTML={{ __html: element.text }}
           />
         );

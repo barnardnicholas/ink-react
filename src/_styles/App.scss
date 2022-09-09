@@ -25,9 +25,10 @@ canvas {
   width: 100vw;
   height: 100vh;
   height: calc(var(--vh) * 100); // Dynamic vh unit
-  position: fixed;
+  // position: fixed;
   background-color: var(--main-background);
   color: var(--main-typography);
+  padding: 1rem;
 
   @include transitionColors();
 }
