@@ -3,7 +3,6 @@ import { Choice as ChoiceType } from 'inkjs/engine/Choice';
 import { ErrorType } from 'inkjs/engine/Error';
 import { Story as StoryType } from 'inkjs/engine/Story';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import usePrevious from './usePrevious';
 
 interface UseStory {
   story: StoryType;
@@ -31,7 +30,6 @@ const useStory = (inkFile: Record<string, any>): UseStory => {
   const storyRef = useRef<StoryType>(new Story(inkFile));
   const [storyElements, setStoryElements] = useState<StoryElement[]>([]);
   const [storyChoices, setStoryChoices] = useState<StoryElement[]>([]);
-  const prevProps = usePrevious({ story: storyRef.current });
 
   function end() {
     setStoryChoices([]);
@@ -80,19 +78,8 @@ const useStory = (inkFile: Record<string, any>): UseStory => {
         if (type === ErrorType.Warning) console.warn(msg);
         else console.error(msg);
       }; // Handle story errors
-      // storyRef.current.BindExternalFunction(
-      //   'playSound',
-      //   (audioName: string) => {
-      //     console.log(`Playing ${audioName}`);
-      //   },
-      //   true,
-      // ); // Trigger external funciton from within ink
     }
   }, []);
-
-  useEffect(() => {
-    console.log(storyRef?.current?.currentTags);
-  }, [storyRef?.current?.currentTags, prevProps.story.currentTags]);
 
   useEffect(() => {
     if (storyRef.current) continueToNextChoice();

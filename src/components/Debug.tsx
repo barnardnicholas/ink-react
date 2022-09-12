@@ -34,13 +34,15 @@ interface Variable extends InkObject {
 
 function Debug({ story }: DebugProps) {
   return (
-    <div>
+    <div className="debug">
       <h2>Debug</h2>
       <Divider />
       <h3>Current Tags</h3>
-      {story!.currentTags!.map((tag: string) => (
-        <div key={tag}>{tag}</div>
-      ))}
+      <div style={{ minHeight: '1.2rem' }}>
+        {story!.currentTags!.map((tag: string) => (
+          <span key={tag}>{tag} </span>
+        ))}
+      </div>
       <Divider />
       <h3>Story State</h3>
       {variablesToGet.map((variable: string) => {

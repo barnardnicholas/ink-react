@@ -16,32 +16,34 @@ function Story() {
       scrollRef.current!.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [scrollRef, storyElements, prevProps.storyElements]);
   return (
-    <main className="main-columns">
-      <div className="story">
-        <h2>Story</h2>
-        <Divider />
-        {storyElements.map((element: StoryElement, i: number) => {
-          const uid = `${i}-${element.text}`;
-          return <StoryElementComponent key={uid} element={element} />;
-        })}
-        {storyChoices.map((element: StoryElement, i: number) => {
-          const uid = `${i}-${element.text}`;
-          return (
-            <div key={uid} className="story-element choice">
-              <button
-                className="choice-button"
-                type="button"
-                onClick={() => chooseAnswer(element.i)}
-              >
-                {element.text}
-              </button>
-            </div>
-          );
-        })}
-        <div ref={scrollRef} className="scroll-marker" />
-      </div>
+    <>
+      <main className="main-columns">
+        <div className="story">
+          <h2>Story</h2>
+          <Divider />
+          {storyElements.map((element: StoryElement, i: number) => {
+            const uid = `${i}-${element.text}`;
+            return <StoryElementComponent key={uid} element={element} />;
+          })}
+          {storyChoices.map((element: StoryElement, i: number) => {
+            const uid = `${i}-${element.text}`;
+            return (
+              <div key={uid} className="story-element choice">
+                <button
+                  className="choice-button"
+                  type="button"
+                  onClick={() => chooseAnswer(element.i)}
+                >
+                  {element.text}
+                </button>
+              </div>
+            );
+          })}
+          <div ref={scrollRef} className="scroll-marker" />
+        </div>
+      </main>
       <Debug story={story} />
-    </main>
+    </>
   );
 }
 
