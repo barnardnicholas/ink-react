@@ -23,7 +23,7 @@ function App() {
         const uid = `${i}-${element.text}`;
         return (
           <div key={uid} className="story-element choice">
-            <button className="button" type="button" onClick={() => chooseAnswer(element.i)}>
+            <button className="choice-button" type="button" onClick={() => chooseAnswer(element.i)}>
               {element.text}
             </button>
           </div>

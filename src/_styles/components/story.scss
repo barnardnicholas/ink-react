@@ -1,9 +1,21 @@
 .story-element {
+  padding: 0 0 1rem;
+
   &.text {
+    transition: opacity 0.5s ease;
     &.seen {
       opacity: 0.5;
     }
   }
 
-  padding: 0 0 1rem;
+  &.choice {
+    .choice-button {
+      padding: 0;
+      color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+  }
 }
