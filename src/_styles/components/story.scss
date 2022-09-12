@@ -1,21 +1,28 @@
-.story-element {
-  padding: 0 0 1rem;
+.story {
+  .story-element {
+    padding: 0 0 1rem;
 
-  &.text {
-    transition: opacity 0.5s ease;
-    &.seen {
-      opacity: 0.5;
+    &.text {
+      transition: opacity 0.5s ease;
+      &.seen {
+        opacity: 0.5;
+      }
+    }
+
+    &.choice {
+      .choice-button {
+        padding: 0;
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: 500;
+        text-decoration: underline;
+      }
     }
   }
 
-  &.choice {
-    .choice-button {
-      padding: 0;
-      color: inherit;
-      font-family: inherit;
-      font-size: inherit;
-      font-weight: 500;
-      text-decoration: underline;
-    }
+  .scroll-marker {
+    max-height: 0;
+    width: 100%;
   }
 }

@@ -1,7 +1,9 @@
 import { Story } from 'inkjs';
 import { Choice as ChoiceType } from 'inkjs/engine/Choice';
+import { ErrorType } from 'inkjs/engine/Error';
 import { Story as StoryType } from 'inkjs/engine/Story';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import usePrevious from './usePrevious';
 
 interface UseStory {
   story: StoryType;
@@ -29,6 +31,7 @@ const useStory = (inkFile: Record<string, any>): UseStory => {
   const storyRef = useRef<StoryType>(new Story(inkFile));
   const [storyElements, setStoryElements] = useState<StoryElement[]>([]);
   const [storyChoices, setStoryChoices] = useState<StoryElement[]>([]);
+  const prevProps = usePrevious({ story: storyRef.current });
 
   function end() {
     setStoryChoices([]);
@@ -63,7 +66,6 @@ const useStory = (inkFile: Record<string, any>): UseStory => {
 
   function chooseAnswer(chosenAnswer: number) {
     if (!storyRef.current) return;
-    console.log(storyRef.current);
     setStoryElements((prevState: StoryElement[]) =>
       prevState.map((choice: StoryElement) => ({ ...choice, seen: true })),
     );
@@ -73,8 +75,28 @@ const useStory = (inkFile: Record<string, any>): UseStory => {
   }
 
   useEffect(() => {
+    if (storyRef.current) {
+      storyRef.current.onError = (msg, type) => {
+        if (type === ErrorType.Warning) console.warn(msg);
+        else console.error(msg);
+      }; // Handle story errors
+      // storyRef.current.BindExternalFunction(
+      //   'playSound',
+      //   (audioName: string) => {
+      //     console.log(`Playing ${audioName}`);
+      //   },
+      //   true,
+      // ); // Trigger external funciton from within ink
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(storyRef?.current?.currentTags);
+  }, [storyRef?.current?.currentTags, prevProps.story.currentTags]);
+
+  useEffect(() => {
     if (storyRef.current) continueToNextChoice();
-  }, [continueToNextChoice]);
+  }, [continueToNextChoice]); // Advance story on mount
 
   return {
     story: storyRef.current,
@@ -87,3 +109,9 @@ const useStory = (inkFile: Record<string, any>): UseStory => {
 };
 
 export default useStory;
+
+// story.ObserveVariable('variableName', (varName, newValue) => {})
+// story.state.VisitCountAtPathString("...") How many times was a know visited?
+// story.currentTags // tags
+// story.state.ToJson() // Save State
+// story.state.LoadJson(savedJSON) // Restore State

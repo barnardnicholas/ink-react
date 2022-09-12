@@ -29,6 +29,7 @@ canvas {
   background-color: var(--main-background);
   color: var(--main-typography);
   padding: 1rem;
+  overflow-x: hidden;
 
   @include transitionColors();
 }
@@ -69,42 +70,6 @@ em,
   @include transitionColors();
 }
 
-.background-blocker {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  transition: opacity 0.5s ease, background-color 0.5s ease;
-  background-color: var(--main-background);
-
-  &.hidden {
-    opacity: 0;
-    transition: opacity 0.5s ease, background-color 0.5s ease;
-    pointer-events: none;
-  }
-
-  &.semi-hidden {
-    opacity: 0.75;
-  }
-}
-
-.graphics-blocker {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--main-background);
-  pointer-events: none;
-
-  &.hidden {
-    opacity: 0;
-    transition: opacity 0.5s ease, background-color 0.5s ease;
-  }
-}
-
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
@@ -125,4 +90,9 @@ em,
 *::-webkit-scrollbar-thumb {
   background-color: var(--main-typography);
   border-radius: 0;
+}
+
+.main-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
