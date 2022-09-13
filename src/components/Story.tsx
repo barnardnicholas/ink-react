@@ -2,9 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import useStory, { StoryElement } from '../hooks/useStory';
 import inkFile from '../assets/story/Intercept.ink.json';
 import StoryElementComponent from './StoryElement';
+import StoryChoiceComponent from './StoryChoice';
 import Debug from './Debug';
 import Divider from './Divider';
 import usePrevious from '../hooks/usePrevious';
+import { answerDelay } from '../constants/story';
 
 function Story() {
   const { story, storyElements, storyChoices, chooseAnswer } = useStory(inkFile);
@@ -13,7 +15,7 @@ function Story() {
 
   useEffect(() => {
     if (scrollRef.current && storyElements.length !== prevProps.storyElements.length)
-      scrollRef.current!.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      scrollRef.current!.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [scrollRef, storyElements, prevProps.storyElements]);
   return (
     <>
@@ -26,17 +28,15 @@ function Story() {
             return <StoryElementComponent key={uid} element={element} />;
           })}
           {storyChoices.map((element: StoryElement, i: number) => {
-            const uid = `${i}-${element.text}`;
+            const uid = `${i}-${element.text}-${new Date().valueOf()}`;
             return (
-              <div key={uid} className="story-element choice">
-                <button
-                  className="choice-button"
-                  type="button"
-                  onClick={() => chooseAnswer(element.i)}
-                >
-                  {element.text}
-                </button>
-              </div>
+              <StoryChoiceComponent
+                key={uid}
+                uid={uid}
+                element={element}
+                chooseAnswer={chooseAnswer}
+                delay={answerDelay * 2 + i * answerDelay}
+              />
             );
           })}
           <div ref={scrollRef} className="scroll-marker" />
