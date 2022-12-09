@@ -12,7 +12,7 @@ interface StoryChoiceItemProps {
 
 function StoryChoiceItem({ element, delay, chooseAnswer, uid }: StoryChoiceItemProps) {
   const [style, animate] = useSpring(
-    { from: { transform: `scale(60%)`, opacity: 0 }, config: config.stiff },
+    { from: { transform: `scale(60%)`, opacity: 0 }, config: config.default },
     [],
   );
 

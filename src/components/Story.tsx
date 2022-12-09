@@ -6,17 +6,26 @@ import StoryChoiceComponent from './StoryChoice';
 import Debug from './Debug';
 import Divider from './Divider';
 import usePrevious from '../hooks/usePrevious';
-import { answerDelay } from '../constants/story';
+import { storyElementDelay, answerDelay, intermediateDelay } from '../constants/story';
 
 function Story() {
   const { story, storyElements, storyChoices, chooseAnswer } = useStory(inkFile);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const prevProps = usePrevious({ storyElements });
+  const prevProps = usePrevious({ storyElements, storyChoices });
 
   useEffect(() => {
-    if (scrollRef.current && storyElements.length !== prevProps.storyElements.length)
-      scrollRef.current!.scrollIntoView({ behavior: 'smooth', block: 'end' });
-  }, [scrollRef, storyElements, prevProps.storyElements]);
+    if (
+      scrollRef.current &&
+      (storyElements.length !== prevProps.storyElements.length ||
+        storyChoices.length !== prevProps.storyChoices.length)
+    )
+      setTimeout(
+        () => scrollRef.current!.scrollIntoView({ behavior: 'smooth', block: 'end' }),
+        storyElementDelay * (storyElements.length - prevProps.storyElements.length) +
+          intermediateDelay,
+      );
+  }, [scrollRef, storyElements, prevProps.storyElements, storyChoices, prevProps.storyChoices]); // Scroll to last element when length of elements changes
+
   return (
     <>
       <main className="main-columns">
@@ -25,10 +34,22 @@ function Story() {
           <Divider />
           {storyElements.map((element: StoryElement, i: number) => {
             const uid = `${i}-${element.text}`;
-            return <StoryElementComponent key={uid} element={element} />;
+            return (
+              <StoryElementComponent
+                key={uid}
+                element={element}
+                delay={(i - prevProps.storyElements.length) * storyElementDelay}
+              />
+            );
           })}
           {storyChoices.map((element: StoryElement, i: number) => {
             const uid = `${i}-${element.text}-${new Date().valueOf()}`;
+            if (i === storyChoices.length - 1) {
+              setTimeout(
+                () => scrollRef.current!.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+                answerDelay + 100,
+              );
+            } // Scroll to last element when length of choices changes
             return (
               <StoryChoiceComponent
                 key={uid}

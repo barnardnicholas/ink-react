@@ -3,6 +3,7 @@ import { Choice as ChoiceType } from 'inkjs/engine/Choice';
 import { ErrorType } from 'inkjs/engine/Error';
 import { Story as StoryType } from 'inkjs/engine/Story';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { storyElementDelay } from '../constants/story';
 
 interface UseStory {
   story: StoryType;
@@ -24,52 +25,59 @@ export interface StoryElement {
   i: number;
   seen: boolean;
 }
-/* eslint-disable */
+
 const useStory = (inkFile: Record<string, any>): UseStory => {
-  /* eslint-enable */
   const storyRef = useRef<StoryType>(new Story(inkFile));
   const [storyElements, setStoryElements] = useState<StoryElement[]>([]);
   const [storyChoices, setStoryChoices] = useState<StoryElement[]>([]);
 
   function end() {
     setStoryChoices([]);
-    console.log('THE END');
+    setStoryElements((prevState: StoryElement[]) => {
+      return [...prevState, { text: 'THE END', type: StoryElementType.TEXT, i: 0, seen: false }];
+    });
   }
 
   const continueToNextChoice = useCallback(() => {
-    if (!storyRef.current) return;
-    if (!storyRef.current?.canContinue && storyRef.current?.currentChoices.length === 0) end();
+    if (!storyRef.current.canContinue && storyRef.current.currentChoices.length === 0) end(); // End if there are no choices
 
-    while (storyRef.current?.canContinue) {
+    const nextStoryElements: StoryElement[] = []; // Accumulate new story elements here
+
+    while (storyRef.current.canContinue) {
       const text: string = storyRef.current.Continue() as string;
-      setStoryElements((prevState: StoryElement[]) => {
-        return [...prevState, { text, type: StoryElementType.TEXT, i: 0, seen: false }];
-      });
-    }
+      nextStoryElements.push({ text, type: StoryElementType.TEXT, i: 0, seen: false });
+    } // Continue story to next choice & save new elements
 
-    if (storyRef.current?.currentChoices.length > 0) {
-      setStoryChoices(
-        storyRef.current.currentChoices.map((choice: ChoiceType, i: number) => ({
-          text: `${i + 1}. ${choice.text}`,
-          type: StoryElementType.CHOICE,
-          i: i + 1,
-          seen: false,
-        })),
-      );
+    setStoryElements((prevState: StoryElement[]) => {
+      return [...prevState, ...nextStoryElements];
+    }); // Update storyElements state
+
+    if (storyRef.current.currentChoices.length > 0) {
+      setTimeout(
+        () =>
+          setStoryChoices(
+            storyRef.current.currentChoices.map((choice: ChoiceType, i: number) => ({
+              text: `${i + 1}. ${choice.text}`,
+              type: StoryElementType.CHOICE,
+              i: i + 1,
+              seen: false,
+            })),
+          ),
+        storyElementDelay * nextStoryElements.length,
+      ); // Wait for animations on new storyElements, then update choices
     } else {
-      setStoryChoices([]);
-      end();
+      setStoryChoices([]); // Clear out storyChoices state
+      end(); // End story
     }
   }, []);
 
   function chooseAnswer(chosenAnswer: number) {
-    if (!storyRef.current) return;
     setStoryElements((prevState: StoryElement[]) =>
       prevState.map((choice: StoryElement) => ({ ...choice, seen: true })),
-    );
-    storyRef.current.ChooseChoiceIndex(chosenAnswer - 1);
-    setStoryChoices([]);
-    continueToNextChoice();
+    ); // Mark existing story elements as seen
+    storyRef.current.ChooseChoiceIndex(chosenAnswer - 1); // Make selection in story
+    setStoryChoices([]); // Clear out choices
+    continueToNextChoice(); // Continue story
   }
 
   useEffect(() => {
@@ -83,7 +91,7 @@ const useStory = (inkFile: Record<string, any>): UseStory => {
 
   useEffect(() => {
     if (storyRef.current) continueToNextChoice();
-  }, [continueToNextChoice]); // Advance story on mount
+  }, [continueToNextChoice]); // Advance story on component mount
 
   return {
     story: storyRef.current,

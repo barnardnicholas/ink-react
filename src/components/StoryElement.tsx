@@ -5,17 +5,18 @@ import useStoryElementHeight from '../hooks/useStoryElementHeight';
 
 interface StoryElementItemProps {
   element: StoryElement;
+  delay: number;
 }
 
-function StoryElementItem({ element }: StoryElementItemProps) {
+function StoryElementItem({ element, delay }: StoryElementItemProps) {
   const [style, animate] = useSpring(
-    { from: { transform: `scale(60%)`, opacity: 0 }, config: config.stiff },
+    { from: { transform: `scale(60%)`, opacity: 0 }, config: config.default },
     [],
   );
 
   useEffect(() => {
-    animate({ transform: `scale(100%)`, opacity: element.seen ? 0.5 : 1 });
-  }, [animate, element.seen]);
+    setTimeout(() => animate({ transform: `scale(100%)`, opacity: element.seen ? 0.5 : 1 }), delay);
+  }, [animate, element.seen, delay]);
 
   return (
     <animated.div
@@ -28,9 +29,10 @@ function StoryElementItem({ element }: StoryElementItemProps) {
 
 interface StoryElementComponentProps {
   element: StoryElement;
+  delay: number;
 }
 
-function StoryElementComponent({ element }: StoryElementComponentProps) {
+function StoryElementComponent({ element, delay }: StoryElementComponentProps) {
   const [visible, setVisible] = useState<boolean>(true);
   const height = useStoryElementHeight(element);
 
@@ -39,7 +41,7 @@ function StoryElementComponent({ element }: StoryElementComponentProps) {
   }, []);
 
   return visible ? (
-    <StoryElementItem element={element} />
+    <StoryElementItem element={element} delay={delay} />
   ) : (
     <div style={{ minHeight: `${height}px` }} />
   );
