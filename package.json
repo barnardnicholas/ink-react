@@ -32,7 +32,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "compile": "ink-tools compile ./src/assets/story/Intercept.ink"
+    "compile": "ink-tools compile ./src/assets/story/Intercept.ink",
+    "deploy": "npm run build && firebase deploy"
   },
   "eslintConfig": {
     "extends": [
