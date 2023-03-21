@@ -9,7 +9,8 @@ import usePrevious from '../hooks/usePrevious';
 import { storyElementDelay, answerDelay, intermediateDelay } from '../constants/story';
 
 function Story() {
-  const { story, storyElements, storyChoices, chooseAnswer } = useStory(inkFile);
+  const { story, storyElements, storyChoices, chooseAnswer, saveStoryToJSON, loadStoryFromJSON } =
+    useStory(inkFile);
   const scrollRef = useRef<HTMLDivElement>(null);
   const prevProps = usePrevious({ storyElements, storyChoices });
 
@@ -31,6 +32,12 @@ function Story() {
       <main className="main-columns">
         <div className="story">
           <h2>Story</h2>
+          <button className="button" type="button" onClick={saveStoryToJSON}>
+            Save (WIP)
+          </button>
+          <button className="button" type="button" onClick={loadStoryFromJSON}>
+            Load (WIP)
+          </button>
           <Divider />
           {storyElements.map((element: StoryElement, i: number) => {
             const uid = `${i}-${element.text}`;

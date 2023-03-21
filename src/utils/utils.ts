@@ -25,4 +25,22 @@ export function areArraysEqual(arr1: unknown[], arr2: unknown[], depth?: number)
 
   return check(arr1, arr2, intDepth);
 }
+
+/**
+ * Encode strings to gibberish
+ * @param value The string to encode
+ * @return Encoded string
+ */
+export function encodeString(value: string): string {
+  return encodeURIComponent(value).replace(/'/g, '%27').replace(/"/g, '%22');
+}
+
+/**
+ * Decode strings from gibberish
+ * @param value The string to decode
+ * @return Decoded string
+ */
+export function decodeString(value: string) {
+  return decodeURIComponent(value.replace(/\+/g, ' '));
+}
 /* eslint-enable */
