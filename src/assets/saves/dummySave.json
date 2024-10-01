@@ -1,0 +1,149 @@
+{
+  "inkJSON": "{\"flows\":{\"DEFAULT_FLOW\":{\"callstack\":{\"threads\":[{\"callstack\":[{\"cPath\":\"start.waited.0.g-6.g-7.4.b\",\"idx\":1,\"exp\":false,\"type\":0,\"temp\":{\"$r\":{\"^->\":\"start.waited.0.g-1.15.$r1\"}}},{\"exp\":false,\"type\":0}],\"threadIndex\":21,\"previousContentObject\":\"missing_reel.0.11\"}],\"threadCounter\":23},\"outputStream\":[\"^\\\"We need that component,\\\" he says.\",\"\\n\"],\"choiceThreads\":{\"22\":{\"callstack\":[{\"cPath\":\"start.waited.0.g-6.g-7.4.b\",\"idx\":1,\"exp\":false,\"type\":0,\"temp\":{\"$r\":{\"^->\":\"start.waited.0.g-1.15.$r1\"}}},{\"cPath\":\"missing_reel.0\",\"idx\":5,\"exp\":false,\"type\":0}],\"threadIndex\":22,\"previousContentObject\":\"missing_reel.0.4\"},\"23\":{\"callstack\":[{\"cPath\":\"start.waited.0.g-6.g-7.4.b\",\"idx\":1,\"exp\":false,\"type\":0,\"temp\":{\"$r\":{\"^->\":\"start.waited.0.g-1.15.$r1\"}}},{\"cPath\":\"missing_reel.0\",\"idx\":11,\"exp\":false,\"type\":0}],\"threadIndex\":23,\"previousContentObject\":\"missing_reel.0.10\"}},\"currentChoices\":[{\"text\":\"The stolen component...\",\"index\":0,\"originalChoicePath\":\"missing_reel.0.5\",\"originalThreadIndex\":22,\"targetPath\":\"missing_reel.0.c-0\"},{\"text\":\"Shrug\",\"index\":1,\"originalChoicePath\":\"missing_reel.0.11\",\"originalThreadIndex\":23,\"targetPath\":\"missing_reel.0.c-1\"}]}},\"currentFlowName\":\"DEFAULT_FLOW\",\"variablesState\":{\"evasive\":2},\"evalStack\":[],\"visitCounts\":{\"\":1,\"start\":1,\"start.0.g-0\":1,\"start.0.g-0.c-0\":1,\"start.0.opts\":1,\"start.0.opts.0\":1,\"start.0.opts.c-2\":1,\"start.0.opts.c-2.12.c-2\":1,\"raise\":3,\"start.0.g-1\":1,\"start.waited\":1,\"start.waited.0.g-0\":1,\"start.waited.0.g-0.c-0\":1,\"start.waited.0.g-1\":1,\"start.waited.0.g-1.c-6\":1,\"start.waited.0.g-1.c-6.3.pushes_cup\":1,\"start.waited.0.g-2\":1,\"start.waited.0.g-2.c-8\":1,\"start.waited.0.g-3\":1,\"start.waited.0.g-3.c-14\":1,\"start.waited.0.g-4\":1,\"start.waited.0.g-4.g-5\":1,\"start.waited.0.g-4.g-5.c-17\":1,\"lower\":1,\"start.waited.0.g-6\":1,\"start.waited.0.g-6.g-7\":1,\"missing_reel\":1},\"turnIndices\":{},\"turnIdx\":7,\"storySeed\":1,\"previousRandom\":0,\"inkSaveVersion\":10,\"inkFormatVersion\":21}",
+  "storyElements": [
+    {
+      "text": "They are keeping me waiting.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "Hut 14. The door was locked after I sat down.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "I don't even have a pen to do any work. There's a copy of the morning's intercept in my pocket, but staring at the jumbled letters will only drive me mad.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "I am not a machine, whatever they say about me.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "What I am is a problem—solver. Good with figures, quick with crosswords, excellent at chess.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "But in this scenario — in this trap — what is the winning play?\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "Avoidance and delay. The military machine never fights on a single front. If I move slowly enough, things will resolve themselves some other way, my reputation intact.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "Half an hour goes by before Commander Harris returns. He closes the door behind him quickly, as though afraid a loose word might slip inside.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "\"Well, then,\" he begins, awkwardly. This is an unseemly situation.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "\"Commander.\"\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "He nods. He has brought two cups of tea in metal mugs: he sets them down on the tabletop between us.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "I wait for him to speak.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "He pushes one mug halfway towards me: a small gesture of friendship.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "Enough to give me hope?\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "Just a cup of insipid canteen tea. I leave it where it is.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "\"Quite a difficult situation,\" Harris begins. I've seen him adopt this stiff tone of voice before, but only when talking to the brass. \"I'm sure you agree.\"\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "\"I'm sure you've handled worse,\" I reply casually.\n",
+      "type": 0,
+      "i": 0,
+      "seen": true
+    },
+    {
+      "text": "I try a weak smile. It is not returned.\n",
+      "type": 0,
+      "i": 0,
+      "seen": false
+    },
+    {
+      "text": "\"We need that component,\" he says.\n",
+      "type": 0,
+      "i": 0,
+      "seen": false
+    },
+    {
+      "text": "1. The stolen component...",
+      "type": 1,
+      "i": 1,
+      "seen": false
+    },
+    {
+      "text": "2. Shrug",
+      "type": 1,
+      "i": 2,
+      "seen": false
+    }
+  ]
+}
